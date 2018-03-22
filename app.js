@@ -2,7 +2,7 @@ var express             = require("express"),
     bodyParser          = require("body-parser"),
     seedDB              =require("./seedDB"),
     Campgrounds         = require("./models/campground"),
-    Comments            = require("./models/comment"),
+    Comment            = require("./models/comment"),
     mongoose            = require("mongoose");
 
 
@@ -122,7 +122,7 @@ app.post("/campground/:id/comment",function(req,res)
      		console.log(err);
      		res.redirect("/");
      	}
-     	Comments.create({
+     	Comment.create({
      		text:req.body.text,
      		author:req.body.author
      	},function(err,createdComment)
@@ -140,35 +140,14 @@ app.post("/campground/:id/comment",function(req,res)
 
      });
 
+});
 
-
-
-
-	// Comments.create({
-	// 	text:req.body.text,
-	// 	author:req.body.author
-	// },function(err,createdComment)
-	// {
-	// 	if(err)
-	// 	{
-	// 		console.log(err)
-	// 		res.redirect("/campground/:id/comment/new");
-	// 	}
-	// 	else
-	// 	{
-	// 		Campgrounds.findById(req.params.id,function(err,camp)
-	// 		{
-	// 			if(err)
-	// 			{
-	// 				console.log(err);
-	// 	            res.redirect("/");
-	// 			}
-	// 			camp.comments.push(createdComment._id);
-	// 			camp.save();
-	// 			res.redirect("/campground/req.params.id");
-	// 		})
-	// 	}
-	// })
+////////////////
+// LOGIN ROUTES
+///////////////
+app.get("/login",function(req,res)
+{
+	res.render("auth/login");
 
 });
 
