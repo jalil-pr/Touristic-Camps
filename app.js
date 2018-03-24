@@ -2,7 +2,11 @@ var express             = require("express"),
     bodyParser          = require("body-parser"),
     seedDB              =require("./seedDB"),
     Campgrounds         = require("./models/campground"),
-    Comment            = require("./models/comment"),
+    Comment             = require("./models/comment"),
+    User                = require("./models/user"),
+    passport            =require("passport"),
+    methodOverride      =require("method-override"),
+    localStrategy       =require("passport-local"),
     mongoose            = require("mongoose");
 
 
@@ -15,6 +19,19 @@ seedDB();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+"/public"));
 app.set("view engine","ejs");
+app.use(methodOverride("_method"));
+
+
+app.use(require("express-session")({
+	secret:"jalil is the best programmer in the world",
+	resave:false,
+	saveUninitialized:false
+
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
 
 
 //////////////
@@ -97,6 +114,23 @@ app.get("/campground/:id",function(req,res)
 	});
 
 });
+//////////////
+// EDIT ROUTE
+//////////////
+app.get("/campground/:id/edit",function(req,res)
+{
+	Campgrounds.findById(req.params.id,function(err,foundCamp)
+	{
+		if(err)
+		{
+			console.log(err);
+			res.redirect("/");
+		}
+
+		res.render("campgrounds/edit",{camp:foundCamp});
+
+	});
+});
 ////////////////
 //COMMENTS ROUTES
 ////////////////
@@ -113,6 +147,7 @@ app.get("/campground/:id/comment/new",function(req,res)
 	});
 	
 });
+
 app.post("/campground/:id/comment",function(req,res)
 {
      Campgrounds.findById(req.params.id,function(err,foundCamp)
@@ -141,6 +176,37 @@ app.post("/campground/:id/comment",function(req,res)
      });
 
 });
+
+//////////////
+// UPDATE ROUTE
+//////////////
+app.put("/campground/:id",function(req,res)
+{
+	Campgrounds.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCamp)
+	{
+		if(err)
+		{
+			console.log(err);
+			res.redirect("/");
+		}
+		res.redirect("/campground/"+req.params.id);
+
+
+	});
+
+});
+
+/////////
+/// SIGN UP ROUTES
+/////////
+app.get("/register",function(req,res)
+{
+	res.render("auth/register");
+
+});
+
+
+
 
 ////////////////
 // LOGIN ROUTES
