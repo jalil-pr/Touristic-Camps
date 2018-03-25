@@ -114,8 +114,10 @@ app.get("/campground/:id",function(req,res)
 	});
 
 });
+
+
 //////////////
-// EDIT ROUTE
+// EDIT ROUTEs
 //////////////
 app.get("/campground/:id/edit",function(req,res)
 {
@@ -177,24 +179,43 @@ app.post("/campground/:id/comment",function(req,res)
 
 });
 
-//////////////
+//////////
 // UPDATE ROUTE
-//////////////
+//////////
 app.put("/campground/:id",function(req,res)
 {
-	Campgrounds.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCamp)
+
+	Campgrounds.findByIdAndUpdate(req.params.id,req.body.camp,function(err,updatedCamp)
 	{
 		if(err)
 		{
 			console.log(err);
 			res.redirect("/");
 		}
-		res.redirect("/campground/"+req.params.id);
-
+		res.redirect("/campground/"+updatedCamp._id);
 
 	});
-
 });
+
+///////////////
+//   DELETE ROUTE
+///////////////
+app.delete("/campground/:id",function(req,res)
+{
+	Campgrounds.findByIdAndRemove(req.params.id,function(err)
+	{
+		if(err)
+		{
+			res.redirect("/");
+		}
+		else
+		{
+			res.redirect("/");
+		};
+	})
+});
+
+
 
 /////////
 /// SIGN UP ROUTES
@@ -218,14 +239,9 @@ app.get("/login",function(req,res)
 });
 
 
-
-
-
-
-
-
-
 app.listen(3000,function()
 {
 	console.log("server has started.");
 });
+// test the edit rout and fix the problem,
+// add one more route and push it to the github
