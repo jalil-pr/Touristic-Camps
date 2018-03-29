@@ -114,15 +114,10 @@ app.get("/campground/:id",function(req,res)
 	});
 
 });
-<<<<<<< HEAD
 
 
-//////////////
-// EDIT ROUTEs
-=======
 //////////////
 // EDIT ROUTE
->>>>>>> 7a55a5d9ac96407e449fbe3e4d50ada7c04a7508
 //////////////
 app.get("/campground/:id/edit",function(req,res)
 {
@@ -184,12 +179,6 @@ app.post("/campground/:id/comment",function(req,res)
 
 });
 
-<<<<<<< HEAD
-//////////
-// UPDATE ROUTE
-//////////
-app.put("/campground/:id",function(req,res)
-=======
 //////////////
 // UPDATE ROUTE
 //////////////
@@ -219,30 +208,10 @@ app.get("/register",function(req,res)
 });
 
 
-
-
-////////////////
-// LOGIN ROUTES
 ///////////////
-app.get("/login",function(req,res)
->>>>>>> 7a55a5d9ac96407e449fbe3e4d50ada7c04a7508
-{
-
-	Campgrounds.findByIdAndUpdate(req.params.id,req.body.camp,function(err,updatedCamp)
-	{
-		if(err)
-		{
-			console.log(err);
-			res.redirect("/");
-		}
-		res.redirect("/campground/"+updatedCamp._id);
-
-	});
-});
-
+/// DELETE ROUTE
 ///////////////
-//   DELETE ROUTE
-///////////////
+
 app.delete("/campground/:id",function(req,res)
 {
 	Campgrounds.findByIdAndRemove(req.params.id,function(err)
@@ -259,7 +228,6 @@ app.delete("/campground/:id",function(req,res)
 });
 
 
-
 /////////
 /// SIGN UP ROUTES
 /////////
@@ -268,8 +236,30 @@ app.get("/register",function(req,res)
 	res.render("auth/register");
 
 });
+app.post("/register",function(req,res)
+{
+	var newUser=new User({username:req.body.name});
+	User.register(newUser,req.body.password,function(err,user)
+	{
+		if(err)
+		{
 
+			console.log(err);
+			return res.render("auth/register");
+		}
+		else
+		{
+			passport.authenticate("local")(req,res,function()
+			{
+				res.redirect("/");
 
+			});
+
+		}
+
+	});
+
+});
 
 
 ////////////////
@@ -277,9 +267,11 @@ app.get("/register",function(req,res)
 ///////////////
 app.get("/login",function(req,res)
 {
+
 	res.render("auth/login");
 
 });
+
 
 
 app.listen(3000,function()

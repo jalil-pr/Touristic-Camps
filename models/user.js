@@ -3,7 +3,7 @@ var mongoose=require("mongoose");
 var localMongoose=require("passport-local-mongoose");
 
 var UserSchema=new mongoose.Schema({
-	name:String,
+	username:String,
 	password:String,
 });
 
