@@ -31,7 +31,15 @@ app.use(require("express-session")({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req,res,next)
+	{
+		res.locals.currentUser=req.user;
+		next();
+
+	});
 passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 //////////////
@@ -136,7 +144,7 @@ app.get("/campground/:id/edit",function(req,res)
 ////////////////
 //COMMENTS ROUTES
 ////////////////
-app.get("/campground/:id/comment/new",function(req,res)
+app.get("/campground/:id/comment/new",isLoggedIn,function(req,res)
 {
 	Campgrounds.findById(req.params.id,function(err,camp)
 	{
@@ -198,15 +206,6 @@ app.put("/campground/:id",function(req,res)
 
 });
 
-/////////
-/// SIGN UP ROUTES
-/////////
-app.get("/register",function(req,res)
-{
-	res.render("auth/register");
-
-});
-
 
 ///////////////
 /// DELETE ROUTE
@@ -236,9 +235,10 @@ app.get("/register",function(req,res)
 	res.render("auth/register");
 
 });
+
 app.post("/register",function(req,res)
 {
-	var newUser=new User({username:req.body.name});
+	var newUser=new User({username:req.body.username});
 	User.register(newUser,req.body.password,function(err,user)
 	{
 		if(err)
@@ -271,6 +271,29 @@ app.get("/login",function(req,res)
 	res.render("auth/login");
 
 });
+
+app.post("/login",passport.authenticate("local",{
+	successRedirect:"/",
+	failureRedirect:"/login"
+}),function(req,res)
+{
+
+});
+
+app.get("/logout",function(req,res)
+{
+	req.logout();
+	res.redirect("/");
+});
+
+function isLoggedIn(req,res,next)
+{
+	if(req.isAuthenticated())
+	{
+		return next();
+	}	
+	res.redirect("/login");
+}
 
 
 
