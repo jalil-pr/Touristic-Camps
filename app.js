@@ -37,6 +37,7 @@ app.use(function(req,res,next)
 		next();
 
 	});
+
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -141,51 +142,7 @@ app.get("/campground/:id/edit",function(req,res)
 
 	});
 });
-////////////////
-//COMMENTS ROUTES
-////////////////
-app.get("/campground/:id/comment/new",isLoggedIn,function(req,res)
-{
-	Campgrounds.findById(req.params.id,function(err,camp)
-	{
-		if(err)
-		{
-			res.redirect("/");
-		}
-		res.render("comments/new",{camp:camp});
 
-	});
-	
-});
-
-app.post("/campground/:id/comment",function(req,res)
-{
-     Campgrounds.findById(req.params.id,function(err,foundCamp)
-     {
-     	if(err)
-     	{
-     		console.log(err);
-     		res.redirect("/");
-     	}
-     	Comment.create({
-     		text:req.body.text,
-     		author:req.body.author
-     	},function(err,createdComment)
-     	{
-     		if(err)
-     		{
-     			console.log(err);
-     		}
-     		foundCamp.comments.push(createdComment._id);
-     		foundCamp.save();
-     		res.redirect("/campground/"+foundCamp._id);
-
-     	});
-
-
-     });
-
-});
 
 //////////////
 // UPDATE ROUTE
@@ -225,6 +182,48 @@ app.delete("/campground/:id",function(req,res)
 		};
 	})
 });
+app.get("/campground/:id/comment/new",isLoggedIn , function(req,res)
+{
+	Campgrounds.findById(req.params.id,function(err,foundCamp)
+	{
+		if(err)
+		{
+			console.log(err);
+		}
+		else
+		{
+			res.render("comments/new",{camp:foundCamp});
+		}
+
+	});
+
+
+});
+app.post("/campground/:id/comment",function(req,res)
+{
+	Comment.create(req.body.comment,function(err,createdComment)
+	{
+		if(err)
+		{
+			console.log(err);
+			res.redirect("/");
+		}
+		Campgrounds.findById(req.params.id,function(err,foundCamp)
+		{
+			if(err)
+			{
+				console.log(err);
+				res.redirect("/");
+			}
+			foundCamp.comments.push(createdComment._id);
+			foundCamp.save();
+			res.redirect("/campground/"+foundCamp._id);
+
+		});
+
+	});
+
+});
 
 
 /////////
@@ -238,6 +237,7 @@ app.get("/register",function(req,res)
 
 app.post("/register",function(req,res)
 {
+	
 	var newUser=new User({username:req.body.username});
 	User.register(newUser,req.body.password,function(err,user)
 	{
