@@ -67,7 +67,7 @@ app.get("/",function(req,res)
 /////////
 // CREATE ROUUTES
 /////////
-app.get("/campground/new",function(req,res)
+app.get("/campground/new",isLoggedIn,function(req,res)
 {
 	//res.render("new");
     res.render("new");
