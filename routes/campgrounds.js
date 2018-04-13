@@ -4,18 +4,15 @@ var router=express.Router();
 var Campgrounds=require("../models/campground");
 
 
-
-/////////
-// CREATE ROUUTES
-/////////
-router.get("/campground/new",isLoggedIn,function(req,res)
+// create route
+router.get("/new",isLoggedIn,function(req,res)
 {
 	//res.render("new");
     res.render("new");
 });
 
-
-router.post("/campground",function(req,res)
+// new camp
+router.post("/",function(req,res)
 {
 	var name=req.body.name;
 	var url=req.body.url;
@@ -42,10 +39,8 @@ router.post("/campground",function(req,res)
 
 });
 
-//////////////
-//  SHOW ROUT--> to show a specific camp in details
-//////////////
-router.get("/campground/:id",function(req,res)
+// show route
+router.get("/:id",function(req,res)
 {
 	Campgrounds.findById(req.params.id).populate("comments").exec(function(err,theCamp)
 	{
@@ -66,10 +61,10 @@ router.get("/campground/:id",function(req,res)
 });
 
 
-//////////////
+
 // EDIT ROUTE
-//////////////
-router.get("/campground/:id/edit",function(req,res)
+
+router.get("/:id/edit",function(req,res)
 {
 	Campgrounds.findById(req.params.id,function(err,foundCamp)
 	{
@@ -85,10 +80,10 @@ router.get("/campground/:id/edit",function(req,res)
 });
 
 
-//////////////
+
 // UPDATE ROUTE
-//////////////
-router.put("/campground/:id",function(req,res)
+
+router.put("/:id",function(req,res)
 {
 	Campgrounds.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCamp)
 	{
@@ -105,11 +100,10 @@ router.put("/campground/:id",function(req,res)
 });
 
 
-///////////////
-/// DELETE ROUTE
-///////////////
 
-router.delete("/campground/:id",function(req,res)
+// DELETE ROUTE
+
+router.delete("/:id",function(req,res)
 {
 	Campgrounds.findByIdAndRemove(req.params.id,function(err)
 	{
@@ -132,6 +126,8 @@ function isLoggedIn(req,res,next)
 	}	
 	res.redirect("/login");
 }
+
+// exporting route
 
 
 module.exports=router;

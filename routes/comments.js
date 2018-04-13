@@ -1,14 +1,15 @@
 var express=require("express");
-var router=express.Router();
+var router=express.Router({mergeParams:true});
 var Campgrounds=require("../models/campground");
 var Comment    =require("../models/comment");
 
 
 
 
-
-router.get("/campground/:id/comment/new",isLoggedIn , function(req,res)
+// Comments new
+router.get("/new",isLoggedIn , function(req,res)
 {
+	console.log(req.params.id);
 	Campgrounds.findById(req.params.id,function(err,foundCamp)
 	{
 		if(err)
@@ -24,7 +25,9 @@ router.get("/campground/:id/comment/new",isLoggedIn , function(req,res)
 
 
 });
-router.post("/campground/:id/comment",function(req,res)
+
+// comments create
+router.post("/",function(req,res)
 {
 	Comment.create(req.body.comment,function(err,createdComment)
 	{
@@ -50,6 +53,7 @@ router.post("/campground/:id/comment",function(req,res)
 
 });
 
+// middleware to check if the user is authenticated
 function isLoggedIn(req,res,next)
 {
 	if(req.isAuthenticated())
@@ -60,5 +64,5 @@ function isLoggedIn(req,res,next)
 }
 
 
-
+// exporting router
 module.exports=router;

@@ -9,9 +9,9 @@ var router =express.Router();
 
 
 
-//////////////
+
 // INDEX ROUT
-//////////////
+
 router.get("/",function(req,res)
 {
 	Campgrounds.find({},function(err,camps)
@@ -29,9 +29,9 @@ router.get("/",function(req,res)
 });
 
 
-/////////
-/// SIGN UP ROUTES
-/////////
+
+// SIGN UP ROUTES
+
 router.get("/register",function(req,res)
 {
 	res.render("auth/register");
@@ -65,15 +65,16 @@ router.post("/register",function(req,res)
 });
 
 
-////////////////
+
 // LOGIN ROUTES
-///////////////
+
 router.get("/login",function(req,res)
 {
 
 	res.render("auth/login");
 
 });
+// login route
 
 router.post("/login",passport.authenticate("local",{
 	successRedirect:"/",
@@ -82,13 +83,14 @@ router.post("/login",passport.authenticate("local",{
 {
 
 });
-
+// logout route
 router.get("/logout",function(req,res)
 {
 	req.logout();
 	res.redirect("/");
 });
 
+// checking the authentication middleware
 function isLoggedIn(req,res,next)
 {
 	if(req.isAuthenticated())
@@ -97,5 +99,8 @@ function isLoggedIn(req,res,next)
 	}	
 	res.redirect("/login");
 }
+
+
+// exporting route
 
 module.exports=router;
