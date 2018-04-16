@@ -19,7 +19,7 @@ mongoose.connect("mongodb://localhost/final_camp_pract");
 
 
 var app=express();
-seedDB();
+// seedDB();
 
 
 

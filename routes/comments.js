@@ -9,7 +9,7 @@ var Comment    =require("../models/comment");
 // Comments new
 router.get("/new",isLoggedIn , function(req,res)
 {
-	console.log(req.params.id);
+	
 	Campgrounds.findById(req.params.id,function(err,foundCamp)
 	{
 		if(err)
@@ -27,7 +27,7 @@ router.get("/new",isLoggedIn , function(req,res)
 });
 
 // comments create
-router.post("/",function(req,res)
+router.post("/",isLoggedIn,function(req,res)
 {
 	Comment.create(req.body.comment,function(err,createdComment)
 	{
@@ -43,6 +43,9 @@ router.post("/",function(req,res)
 				console.log(err);
 				res.redirect("/");
 			}
+			createdComment.author.id=req.user._id;
+			createdComment.author.username=req.user.username;
+			createdComment.save();
 			foundCamp.comments.push(createdComment._id);
 			foundCamp.save();
 			res.redirect("/campground/"+foundCamp._id);
