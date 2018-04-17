@@ -12,15 +12,20 @@ router.get("/new",isLoggedIn,function(req,res)
 });
 
 // new camp
-router.post("/",function(req,res)
+router.post("/",isLoggedIn,function(req,res)
 {
 	var name=req.body.name;
 	var url=req.body.url;
 	var desc=req.body.desc;
+	var author={
+		id:req.user._id,
+		username:req.user.username
+	};
 	var newCamp=new Campgrounds({
 		name:name,
 		url:url,
-		desc:desc
+		desc:desc,
+		author:author
 	});
 	Campgrounds.create(newCamp,function(err,createdCamp)
 	{
