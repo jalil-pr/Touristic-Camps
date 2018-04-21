@@ -5,6 +5,7 @@ var express             = require("express"),
     Comment             = require("./models/comment"),
     User                = require("./models/user"),
     passport            =require("passport"),
+    methodOverride      = require("method-override"),
     methodOverride      =require("method-override"),
     localStrategy       =require("passport-local"),
     mongoose            = require("mongoose");
@@ -26,6 +27,7 @@ var app=express();
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+"/public"));
+app.use(methodOverride("_method"));
 app.set("view engine","ejs");
 
 // to have RESTful routing we need method-override
