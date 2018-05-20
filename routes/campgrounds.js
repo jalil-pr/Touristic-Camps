@@ -11,6 +11,8 @@ router.get("/new",isLoggedIn,function(req,res)
     res.render("new");
 });
 
+
+
 // new camp
 router.post("/",isLoggedIn,function(req,res)
 {
@@ -131,8 +133,6 @@ function isLoggedIn(req,res,next)
 	}	
 	res.redirect("/login");
 }
-
-// exporting route
 
 
 module.exports=router;
