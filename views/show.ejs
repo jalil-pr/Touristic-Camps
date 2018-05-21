@@ -24,7 +24,7 @@
 		          <h4 class="pull-right">$9/Night<h4>
 		          <h4><%=camp.name%></h4>
 		          <a href="/campground/<%=camp._id%>/edit" class="btn btn-success">Edit Camp</a>
-		          <form action="/campground/<%=camp._id%>?_method=DELETE" method="POST">
+		          <form id="delete-form"action="/campground/<%=camp._id%>?_method=DELETE" method="POST">
 		          <input class="ui red button" type="submit"value="delete the camp">
 		          </form>
 		          <p><%=camp.desc%></p>

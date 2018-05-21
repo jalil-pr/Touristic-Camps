@@ -16,3 +16,7 @@
 	margin:30px auto;
 	width: 30%;
 }
+#delete-form
+{
+	display: inline;
+}
