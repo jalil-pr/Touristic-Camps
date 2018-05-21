@@ -4,6 +4,9 @@ var router=express.Router();
 var Campgrounds=require("../models/campground");
 
 
+
+
+
 // create route
 router.get("/new",isLoggedIn,function(req,res)
 {
@@ -11,9 +14,12 @@ router.get("/new",isLoggedIn,function(req,res)
     res.render("new");
 });
 
+
+
 // new camp
 router.post("/",isLoggedIn,function(req,res)
 {
+	
 	var name=req.body.name;
 	var url=req.body.url;
 	var desc=req.body.desc;
@@ -35,7 +41,7 @@ router.post("/",isLoggedIn,function(req,res)
 		}
 		else
 		{
-			res.redirect("/");
+			return res.redirect("/");
 		}
 
 
@@ -66,7 +72,6 @@ router.get("/:id",function(req,res)
 });
 
 
-
 // EDIT ROUTE
 
 router.get("/:id/edit",function(req,res)
@@ -90,14 +95,14 @@ router.get("/:id/edit",function(req,res)
 
 router.put("/:id",function(req,res)
 {
-	Campgrounds.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCamp)
+	Campgrounds.findByIdAndUpdate(req.params.id,req.body.camp,function(err,updatedCamp)
 	{
 		if(err)
 		{
 			console.log(err);
 			res.redirect("/");
 		}
-		res.redirect("/campground/"+req.params.id);
+		res.redirect("/campground/"+updatedCamp._id);
 
 
 	});

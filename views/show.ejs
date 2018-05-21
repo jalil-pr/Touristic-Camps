@@ -17,13 +17,13 @@
 
 	  <div class="col-md-9">
 
-         
-		     <div class="thumbnail">
+		   <div class="thumbnail">
 
 		        <img class="image-responsive" src="<%=camp.url%>">
-		        <div class="caption-full">
+		      <div class="caption-full">
 		          <h4 class="pull-right">$9/Night<h4>
 		          <h4><%=camp.name%></h4>
+		          <a href="/campground/<%=camp._id%>/edit" class="btn btn-success">Edit Camp</a>
 		          <form action="/campground/<%=camp._id%>?_method=DELETE" method="POST">
 		          <input class="ui red button" type="submit"value="delete the camp">
 		          </form>
@@ -32,33 +32,34 @@
 		           Submitted By:<em><%=camp.author.username%></em>
 
 		          </p>
-		        </div>
+		       </div>
 		     
 
               </div>
+
               <div class="well">
 
-		    <div class="text-right">
-	          <a href="/campground/<%=camp._id%>/comment/new" class="btn btn-success">leave a comment</a>
+				    <div class="text-right">
+			          <a href="/campground/<%=camp._id%>/comment/new" class="btn btn-success">leave a comment</a>
 
-		    </div>
+				    </div>
 
-		   <div class="row">
+			        <div class="row">
 
-		      <div class="col-md-12">
-				      <%camp.comments.forEach(function(comment){%>
-					      <span class="pull-right">10 days ago</span>
-					      <strong><%=comment.author.username%></strong>
-					      <p><%=comment.text %><p>
+			              <div class="col-md-12">
+					          <%camp.comments.forEach(function(comment){%>
+						      <span class="pull-right">10 days ago</span>
+						      <strong><%=comment.author.username%></strong>
+						      <p><%=comment.text %><p>
 
-		              <%});%>
+			              <%});%>
+
+		            </div>
 
 	           </div>
+	    </div>
 
-	        </div>
-	   </div>
-
-	   </div>
+	 </div>
 	   
 
 

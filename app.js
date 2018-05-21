@@ -6,10 +6,10 @@ var express             = require("express"),
     User                = require("./models/user"),
     passport            =require("passport"),
     methodOverride      = require("method-override"),
-    methodOverride      =require("method-override"),
     localStrategy       =require("passport-local"),
     mongoose            = require("mongoose");
 
+    
 // requiring all the routes form routes directory
 var indexRoutes = require("./routes/index");
 var commentsRoutes =require("./routes/comments");
@@ -21,9 +21,6 @@ mongoose.connect("mongodb://localhost/final_camp_pract");
 
 var app=express();
 // seedDB();
-
-
-
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+"/public"));
@@ -57,19 +54,9 @@ app.use("/",indexRoutes);
 app.use("/campground/:id/comment/",commentsRoutes);
 app.use("/campground/",campgroundRoutes);
 
-
-
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-
-
-
-
-
-
-
 
 
 app.listen(3000,function()
