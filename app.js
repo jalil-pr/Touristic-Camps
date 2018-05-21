@@ -20,8 +20,15 @@ mongoose.connect("mongodb://localhost/final_camp_pract");
 
 
 var app=express();
+
+<<<<<<< HEAD
+=======
+
+
+
 // seedDB();
 
+>>>>>>> 56e86e78d3125a3f2f00b237b7e58594ed0cdc9c
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverride("_method"));
@@ -63,5 +70,4 @@ app.listen(3000,function()
 {
 	console.log("server has started.");
 });
-// test the edit rout and fix the problem,
-// add one more route and push it to the github
+

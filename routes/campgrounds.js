@@ -137,7 +137,5 @@ function isLoggedIn(req,res,next)
 	res.redirect("/login");
 }
 
-// exporting route
-
 
 module.exports=router;
