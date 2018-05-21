@@ -11,7 +11,7 @@ var Campgrounds=require("../models/campground");
 router.get("/new",isLoggedIn,function(req,res)
 {
 	//res.render("new");
-    res.render("new");
+    res.render("campgrounds/new");
 });
 
 
@@ -63,7 +63,7 @@ router.get("/:id",function(req,res)
 		else
 		{
 
-		  res.render("show",{camp:theCamp});
+		  res.render("campgrounds/show",{camp:theCamp});
 
 		}
 

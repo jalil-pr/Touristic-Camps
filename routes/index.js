@@ -22,7 +22,7 @@ router.get("/",function(req,res)
 		}
 		else
 		{
-			res.render("index",{allcamps:camps});
+			res.render("campgrounds/index",{allcamps:camps});
 		}
 	})
 

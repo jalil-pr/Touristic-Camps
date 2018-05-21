@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 <div class="container">
 
@@ -18,7 +18,7 @@
                   <div class="thumbnail">
 					<h1><%=camp.name%></h1>
 					<img src="<%=camp.url%>">
-					<a href="/campground/<%=camp._id%>">know more...</a>
+					<a class="btn btn-success" href="/campground/<%=camp._id%>">know more...</a>
                   </div>
 			   </div>
 
@@ -27,4 +27,4 @@
 </div>
 
 
-<% include ./partials/footer %>
+<% include ../partials/footer %>
