@@ -23,12 +23,18 @@
 		      <div class="caption-full">
 		          <h4 class="pull-right">$9/Night<h4>
 		          <h4><%=camp.name%></h4>
-		          <a href="/campground/<%=camp._id%>/edit" class="btn btn-warning">Edit Camp</a>
-		          <form id="delete-form"action="/campground/<%=camp._id%>?_method=DELETE" method="POST">
-		          <input class="btn btn-danger" type="submit"value="delete">
-		          </form>
-		          <p><%=camp.desc%></p>
-		          <p>
+
+		          <% if(currentUser && camp.author.id.equals(currentUser._id)){%>
+			             <a href="/campground/<%=camp._id%>/edit" class="btn btn-warning">Edit Camp</a>
+			             <form id="delete-form"action="/campground/<%=camp._id%>?_method=DELETE" method="POST">
+			             <input class="btn btn-danger" type="submit" value="delete">
+			             </form>
+			             <p><%=camp.desc%></p>
+			             <p>
+
+			        <%}%>
+			       
+			      
 		           Submitted By:<em><%=camp.author.username%></em>
 
 		          </p>

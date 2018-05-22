@@ -73,27 +73,29 @@ router.get("/:id",function(req,res)
 
 
 // EDIT ROUTE
-
-router.get("/:id/edit",function(req,res)
+router.get("/:id/edit",isUserAuthenticated,function(req,res)
 {
-	Campgrounds.findById(req.params.id,function(err,foundCamp)
-	{
-		if(err)
-		{
-			console.log(err);
-			res.redirect("/");
-		}
+	  
+		   	Campgrounds.findById(req.params.id,function(err,foundCamp)
+			{
+					if(err)
+					{
+						console.log(err);
+						res.redirect("/");
+					}
+					
+				    res.render("campgrounds/edit",{camp:foundCamp});
+				
+			});
 
-		res.render("campgrounds/edit",{camp:foundCamp});
-
-	});
+	 		
 });
 
 
 
 // UPDATE ROUTE
 
-router.put("/:id",function(req,res)
+router.put("/:id",isUserAuthenticated,function(req,res)
 {
 	Campgrounds.findByIdAndUpdate(req.params.id,req.body.camp,function(err,updatedCamp)
 	{
@@ -113,7 +115,7 @@ router.put("/:id",function(req,res)
 
 // DELETE ROUTE
 
-router.delete("/:id",function(req,res)
+router.delete("/:id",isUserAuthenticated,function(req,res)
 {
 	Campgrounds.findByIdAndRemove(req.params.id,function(err)
 	{
@@ -135,6 +137,33 @@ function isLoggedIn(req,res,next)
 		return next();
 	}	
 	res.redirect("/login");
+}
+function isUserAuthenticated(req,res,next)
+{
+	 if(req.isAuthenticated())
+	   {
+		   	Campgrounds.findById(req.params.id,function(err,foundCamp)
+			{
+				if(err)
+				{
+					console.log(err);
+					res.redirect("/");
+				}
+				if(foundCamp.author.id.equals(req.user._id))
+				{
+					next();
+				}
+				else
+				{
+					res.redirect("back");
+				}
+			});
+
+	   }
+	   else
+	   {
+	   	res.redirect("back");
+	   }
 }
 
 
