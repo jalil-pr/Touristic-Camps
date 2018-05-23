@@ -46,6 +46,8 @@ app.use(require("express-session")({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 // the middleware that stores the current user to the session
 app.use(function(req,res,next)
 	{
