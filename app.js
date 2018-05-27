@@ -12,7 +12,7 @@ var express             = require("express"),
     
 // requiring all the routes form routes directory
 var indexRoutes = require("./routes/index");
-var commentsRoutes =require("./routes/comments");
+var commentsRoutess =require("./routes/comments");
 var campgroundRoutes=require("./routes/campgrounds");
 
 // connecting to monodb database
@@ -58,7 +58,7 @@ app.use(function(req,res,next)
 
 // removing redundancy from routes by specifying prefix to the routes 
 app.use("/",indexRoutes);
-app.use("/campground/:id/comment/",commentsRoutes);
+app.use("/campground/:id/comment/",commentsRoutess);
 app.use("/campground/",campgroundRoutes);
 
 passport.use(new localStrategy(User.authenticate()));

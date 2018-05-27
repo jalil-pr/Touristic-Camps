@@ -16,11 +16,19 @@
 	margin:30px auto;
 	width: 30%;
 }
-#delete-form
+.delete-form
 {
 	display: inline;
 }
 .text-center
 {
 	padding: 5px;
+}
+.str
+{
+	display: block;
+}
+.delete-form
+{
+	display: inline;
 }

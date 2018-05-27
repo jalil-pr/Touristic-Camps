@@ -55,33 +55,36 @@ router.post("/",isLoggedIn,function(req,res)
 	});
 
 });
-// Edit route
-router.get("/:comment_id/edit",function(req,res)
-{
-	Comment.findById(req.params.comment_id,function(err,foundComment)
-	{
-		if(err)
-		{
-			console.log(err);
-			res.redirect("back");
-		}
-		else
-		{
-			res.render("comments/edit",{campground_id:req.params.id,foundComment:foundComment});
-		}
 
-	});
+
+router.get("/:comment_id/edit",isUserAuthenticated,function(req,res)
+{
+	res.send("it works bro")
+	// Comment.findById(req.params.comment_id,function(err,foundComment)
+	// {
+	// 	if(err)
+	// 	{
+	// 		console.log(err);
+	// 		res.redirect("back");
+	// 	}
+	// 	else
+	// 	{
+	// 		res.render("comments/edit",{campground_id:req.params.id,foundComment:foundComment});
+	// 	}
+
+	// });
 	
 
 });
 
 
+// update route
 
-// Update route
 router.put("/:comment_id",function(req,res)
 {
 
 
+    
 	Comment.findByIdAndUpdate(req.params.comment_id,req.body.comment,function(err,updatedComment)
 	{
 		if(err)
@@ -98,7 +101,54 @@ router.put("/:comment_id",function(req,res)
 
 });
 
-// middleware to check if the user is authenticated
+router.delete("/:comment_id/delete",function(req,res)
+{
+    res.send("it work too");
+	// Comment.findByIdAndRemove(req.params.comment_id,function(err)
+	// {
+	// 	if(err)
+	// 	{
+	// 		console.log("could not delete the comment.");
+
+	// 	}
+	// 	res.send("you have hitted delete route")
+	// 	//res.redirect("/campground/"+req.params.id);
+
+	// });
+
+});
+
+function isUserAuthenticated(req,res,next)
+{
+	   if(req.isAuthenticated())
+	   {
+		   	Comment.findById(req.params.comment_id,function(err,foundComment)
+			{
+				if(err)
+				{
+					console.log(err);
+					res.redirect("/");
+				}
+				if(foundComment.author.id.equals(req.user._id))
+				{
+					next();
+				}
+				else
+				{
+					res.redirect("back");
+				}
+			});
+
+	   }
+	   else
+	   {
+
+	   	res.redirect("back");
+
+	   }
+}
+
+
 function isLoggedIn(req,res,next)
 {
 	if(req.isAuthenticated())
