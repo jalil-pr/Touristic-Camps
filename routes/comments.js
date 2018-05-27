@@ -59,20 +59,20 @@ router.post("/",isLoggedIn,function(req,res)
 
 router.get("/:comment_id/edit",isUserAuthenticated,function(req,res)
 {
-	res.send("it works bro")
-	// Comment.findById(req.params.comment_id,function(err,foundComment)
-	// {
-	// 	if(err)
-	// 	{
-	// 		console.log(err);
-	// 		res.redirect("back");
-	// 	}
-	// 	else
-	// 	{
-	// 		res.render("comments/edit",{campground_id:req.params.id,foundComment:foundComment});
-	// 	}
+	
+	Comment.findById(req.params.comment_id,function(err,foundComment)
+	{
+		if(err)
+		{
+			console.log(err);
+			res.redirect("back");
+		}
+		else
+		{
+			res.render("comments/edit",{campground_id:req.params.id,foundComment:foundComment});
+		}
 
-	// });
+	});
 	
 
 });
@@ -101,20 +101,20 @@ router.put("/:comment_id",function(req,res)
 
 });
 
-router.delete("/:comment_id/delete",function(req,res)
+router.delete("/:comment_id",isUserAuthenticated,function(req,res)
 {
-    res.send("it work too");
-	// Comment.findByIdAndRemove(req.params.comment_id,function(err)
-	// {
-	// 	if(err)
-	// 	{
-	// 		console.log("could not delete the comment.");
 
-	// 	}
-	// 	res.send("you have hitted delete route")
-	// 	//res.redirect("/campground/"+req.params.id);
+	Comment.findByIdAndRemove(req.params.comment_id,function(err)
+	{
+		if(err)
+		{
+			console.log("could not delete the comment.");
 
-	// });
+		}
+		
+		res.redirect("/campground/"+req.params.id);
+
+	});
 
 });
 
