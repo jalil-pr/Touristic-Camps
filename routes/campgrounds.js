@@ -11,7 +11,6 @@ var middleware=require("../middleware/");
 // create route
 router.get("/new",middleware.isLoggedIn,function(req,res)
 {
-	//res.render("new");
     res.render("campgrounds/new");
 });
 
@@ -19,8 +18,7 @@ router.get("/new",middleware.isLoggedIn,function(req,res)
 
 // new camp
 router.post("/",middleware.isLoggedIn,function(req,res)
-{
-	
+{	
 	var name=req.body.name;
 	var url=req.body.url;
 	var desc=req.body.desc;
@@ -47,9 +45,8 @@ router.post("/",middleware.isLoggedIn,function(req,res)
 
 
 	});
-
-
 });
+
 
 // show route
 router.get("/:id",function(req,res)

@@ -60,7 +60,7 @@ router.post("/",middleware.isLoggedIn,function(req,res)
 
 });
 
-
+// Edit route
 router.get("/:comment_id/edit",middleware.isCommentorAuthenticated,function(req,res)
 {
 	

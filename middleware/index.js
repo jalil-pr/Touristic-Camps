@@ -12,6 +12,7 @@ middlewareObject.isCommentorAuthenticated=function(req,res,next)
 			{
 				if(err)
 				{
+					req.flash("error","some error loading the comment!");
 					console.log(err);
 					res.redirect("/");
 				}
@@ -21,6 +22,7 @@ middlewareObject.isCommentorAuthenticated=function(req,res,next)
 				}
 				else
 				{
+					req.flash("error","you don't have permission to do that!");
 					res.redirect("back");
 				}
 			});
@@ -28,6 +30,7 @@ middlewareObject.isCommentorAuthenticated=function(req,res,next)
 	   }
 	   else
 	   {
+	   	req.flash("error","please login first!");
 
 	   	res.redirect("back");
 
@@ -50,6 +53,7 @@ middlewareObject.isUserAuthenticated=function(req,res,next)
 				}
 				else
 				{
+
 					res.redirect("back");
 				}
 			});
@@ -66,6 +70,7 @@ middlewareObject.isLoggedIn=function(req,res,next)
 	{
 		return next();
 	}	
+	//req.flash("error","please login first");
 	res.redirect("/login");
 }
 
