@@ -70,7 +70,7 @@ middlewareObject.isLoggedIn=function(req,res,next)
 	{
 		return next();
 	}	
-	//req.flash("error","please login first");
+	req.flash("error","please login first");
 	res.redirect("/login");
 }
 

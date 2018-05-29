@@ -74,8 +74,8 @@ router.get("/login",function(req,res)
 	res.render("auth/login");
 
 });
-// login route
 
+// login route
 router.post("/login",passport.authenticate("local",{
 	successRedirect:"/",
 	failureRedirect:"/login"
@@ -87,18 +87,11 @@ router.post("/login",passport.authenticate("local",{
 router.get("/logout",function(req,res)
 {
 	req.logout();
+	req.flash("success","successfuly logged out!");
 	res.redirect("/");
 });
 
-// checking the authentication middleware
-function isLoggedIn(req,res,next)
-{
-	if(req.isAuthenticated())
-	{
-		return next();
-	}	
-	res.redirect("/login");
-}
+
 
 
 // exporting route
