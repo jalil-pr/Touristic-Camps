@@ -73,6 +73,7 @@ router.get("/:comment_id/edit",middleware.isCommentorAuthenticated,function(req,
 		}
 		else
 		{
+
 			res.render("comments/edit",{campground_id:req.params.id,foundComment:foundComment});
 		}
 
@@ -95,6 +96,7 @@ router.put("/:comment_id",middleware.isCommentorAuthenticated,function(req,res)
 		}
 		else
 		{
+			req.flash("success","your comment has been edited");
 			res.redirect("/campground/"+req.params.id);
 		}
 	});
@@ -112,7 +114,7 @@ router.delete("/:comment_id",middleware.isCommentorAuthenticated,function(req,re
 			console.log("could not delete the comment.");
 
 		}
-		
+		req.flash("success","comment deleted!")
 		res.redirect("/campground/"+req.params.id);
 
 	});

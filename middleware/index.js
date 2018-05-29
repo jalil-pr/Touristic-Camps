@@ -13,11 +13,11 @@ middlewareObject.isCommentorAuthenticated=function(req,res,next)
 				if(err)
 				{
 					req.flash("error","some error loading the comment!");
-					console.log(err);
 					res.redirect("/");
 				}
 				if(foundComment.author.id.equals(req.user._id))
 				{
+					
 					next();
 				}
 				else
@@ -44,16 +44,17 @@ middlewareObject.isUserAuthenticated=function(req,res,next)
 			{
 				if(err)
 				{
-					console.log(err);
+					req.flash("error","faced some problem finding the camp!")
 					res.redirect("/");
 				}
 				if(foundCamp.author.id.equals(req.user._id))
 				{
+					req.flash("success","now you can edit the camp");
 					next();
 				}
 				else
 				{
-
+                    req.flash("error","the camp does not belonge to you, so you can't do that!")
 					res.redirect("back");
 				}
 			});
@@ -61,6 +62,7 @@ middlewareObject.isUserAuthenticated=function(req,res,next)
 	   }
 	   else
 	   {
+	   	req.flash("error","please do whatever you are allowed to!");
 	   	res.redirect("back");
 	   }
 };
@@ -68,7 +70,7 @@ middlewareObject.isLoggedIn=function(req,res,next)
 {
 	if(req.isAuthenticated())
 	{
-		return next();
+		 next();
 	}	
 	req.flash("error","please login first");
 	res.redirect("/login");
