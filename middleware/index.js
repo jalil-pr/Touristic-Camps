@@ -44,11 +44,14 @@ middlewareObject.isUserAuthenticated=function(req,res,next)
 			{
 				if(err)
 				{
+
 					req.flash("error","faced some problem finding the camp!")
 					res.redirect("/");
 				}
-				if(foundCamp.author.id.equals(req.user._id))
+				
+				if(foundCamp && foundCamp.author.id.equals(req.user._id))
 				{
+					console.log()
 					req.flash("success","now you can edit the camp");
 					next();
 				}

@@ -7,7 +7,21 @@ var middleware=require("../middleware/");
 
 
 
+router.get("/",function(req,res)
+{
+	Campgrounds.find({},function(err,camps)
+	{
+		if(err)
+		{
+			console.log(err);
+		}
+		else
+		{
+			res.render("campgrounds/index",{allcamps:camps});
+		}
+	})
 
+});
 // create route
 router.get("/new",middleware.isLoggedIn,function(req,res)
 {

@@ -14,17 +14,7 @@ var router =express.Router();
 
 router.get("/",function(req,res)
 {
-	Campgrounds.find({},function(err,camps)
-	{
-		if(err)
-		{
-			console.log(err);
-		}
-		else
-		{
-			res.render("campgrounds/index",{allcamps:camps});
-		}
-	})
+	res.render("landing");
 
 });
 
