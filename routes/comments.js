@@ -7,9 +7,6 @@ var Comment    =require("../models/comment");
 var middleware  =require("../middleware/");
 
 
-
-
-
 // Comments new
 router.get("/new",middleware.isLoggedIn , function(req,res)
 {
@@ -38,23 +35,30 @@ router.post("/",middleware.isLoggedIn,function(req,res)
 		if(err)
 		{
 			console.log(err);
+			req.flash("error","some problem posting your comment! we are sorry for that!");
 			res.redirect("/");
 		}
-		Campgrounds.findById(req.params.id,function(err,foundCamp)
+		else
 		{
-			if(err)
+			Campgrounds.findById(req.params.id,function(err,foundCamp)
 			{
-				console.log(err);
-				res.redirect("/");
-			}
-			createdComment.author.id=req.user._id;
-			createdComment.author.username=req.user.username;
-			createdComment.save();
-			foundCamp.comments.push(createdComment._id);
-			foundCamp.save();
-			res.redirect("/campground/"+foundCamp._id);
+				if(err)
+				{
+					console.log(err);
+					res.redirect("/");
+				}
+				createdComment.author.id=req.user._id;
+				createdComment.author.username=req.user.username;
+				createdComment.save();
+				foundCamp.comments.push(createdComment._id);
+				foundCamp.save();
+				req.flash("success","your comment succesfully posted.");
+				res.redirect("/campground/"+foundCamp._id);
 
-		});
+			});
+
+		}
+		
 
 	});
 
@@ -79,7 +83,6 @@ router.get("/:comment_id/edit",middleware.isCommentorAuthenticated,function(req,
 
 	});
 	
-
 });
 
 
