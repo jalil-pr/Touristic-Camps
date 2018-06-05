@@ -22,7 +22,7 @@
 
 		        <img class="image-responsive" src="<%=camp.url%>">
 		      <div class="caption-full">
-		          <h4 class="pull-right">$9/Night<h4>
+		          <h4 class="pull-right">$<%=camp.price%><h4>
 		          <h4><%=camp.name%></h4>
 
 		          <% if(currentUser && camp.author.id.equals(currentUser._id)){%>

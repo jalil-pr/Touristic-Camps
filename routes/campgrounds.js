@@ -34,6 +34,7 @@ router.get("/new",middleware.isLoggedIn,function(req,res)
 router.post("/",middleware.isLoggedIn,function(req,res)
 {	
 	var name=req.body.name;
+	var price=req.body.price;
 	var url=req.body.url;
 	var desc=req.body.desc;
 	var author={
@@ -42,6 +43,7 @@ router.post("/",middleware.isLoggedIn,function(req,res)
 	};
 	var newCamp=new Campgrounds({
 		name:name,
+		price:price,
 		url:url,
 		desc:desc,
 		author:author

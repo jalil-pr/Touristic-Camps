@@ -17,7 +17,7 @@ var commentsRoutess =require("./routes/comments");
 var campgroundRoutes=require("./routes/campgrounds");
 
 // connecting to monodb database
-mongoose.connect("mongodb://localhost/final_camp_pract");
+mongoose.connect("mongodb://localhost/camp_v14");
 
 
 var app=express();

@@ -33,6 +33,7 @@ function seedDb()
 	{
 		if(err)
 		{
+			console.log("you see if there is not database and we try to delete it, this is what happens.");
 			console.log(err);
 		}
 		else
