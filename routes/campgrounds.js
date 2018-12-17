@@ -85,7 +85,6 @@ router.get("/:id",function(req,res)
 
 });
 
-
 // EDIT ROUTE
 router.get("/:id/edit",middleware.isUserAuthenticated,function(req,res)
 {
@@ -105,10 +104,7 @@ router.get("/:id/edit",middleware.isUserAuthenticated,function(req,res)
 	 		
 });
 
-
-
 // UPDATE ROUTE
-
 router.put("/:id",middleware.isUserAuthenticated,function(req,res)
 {
 	Campgrounds.findByIdAndUpdate(req.params.id,req.body.camp,function(err,updatedCamp)

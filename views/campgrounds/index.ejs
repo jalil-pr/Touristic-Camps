@@ -2,7 +2,7 @@
 
 <div class="container">
 
-	    <header class="jumbotron">
+	    <header class="jumbotron ind">
 	       <h1>welcome to yelpcamp</h1>
 	       <div>
 	         <a class="btn btn-primary btn-large"href="/campground/new">add a new camp</a>
@@ -14,7 +14,7 @@
 	 <div class="row" >
 
 			<% allcamps.forEach(function(camp){%>
-			   <div class="col-sm-6 col-md-4">
+			   <div class="col-sm-6 col-md-3">
                   <div class="thumbnail">
 					<h1><%=camp.name%></h1>
 					<img src="<%=camp.url%>">

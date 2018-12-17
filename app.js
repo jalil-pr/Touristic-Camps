@@ -1,14 +1,14 @@
-var express             = require("express"),
-    bodyParser          = require("body-parser"),
-    seedDB              =require("./seedDB"),
-    Campgrounds         = require("./models/campground"),
-    Comment             = require("./models/comment"),
-    User                = require("./models/user"),
-    passport            =require("passport"),
-    flash               =require("connect-flash"),
-    methodOverride      = require("method-override"),
-    localStrategy       =require("passport-local"),
-    mongoose            = require("mongoose");
+    var     express             = require("express"),
+            bodyParser          = require("body-parser"),
+            seedDB              =require("./seedDB"),
+            Campgrounds         = require("./models/campground"),
+            Comment             = require("./models/comment"),
+            User                = require("./models/user"),
+            passport            =require("passport"),
+            flash               =require("connect-flash"),
+            methodOverride      = require("method-override"),
+            localStrategy       =require("passport-local"),
+            mongoose            = require("mongoose");
 
     
 // requiring all the routes form routes directory
@@ -54,12 +54,12 @@ app.use(passport.session());
 app.use(function(req,res,next)
 	{
 		res.locals.currentUser=req.user;
-        //res.locals.error=req.flash("error");
         res.locals.error=req.flash("error");
         res.locals.success=req.flash("success");
 		next();
+    }
+);
 
-	});
 
 // removing redundancy from routes by specifying prefix to the routes 
 app.use("/",indexRoutes);
@@ -71,8 +71,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-app.listen(3000,function()
+app.listen(3005,function()
 {
-	console.log("server has started.");
+	//console.log("server has started.");
 });
 

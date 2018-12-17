@@ -1,17 +1,12 @@
 
-var express=require("express");
-var passport=require("passport");
-var Campgrounds=require("../models/campground");
-var User       =require("../models/user");
-var router =express.Router();
-
-
-
-
+var      express       =require("express"),
+         passport      =require("passport"),
+         Campgrounds   =require("../models/campground"),
+         User          =require("../models/user"),
+         router        =express.Router();
 
 
 // INDEX ROUT
-
 router.get("/",function(req,res)
 {
 	res.render("landing");
@@ -21,7 +16,6 @@ router.get("/",function(req,res)
 
 
 // SIGN UP ROUTES
-
 router.get("/register",function(req,res)
 {
 	res.render("auth/register");
@@ -45,7 +39,6 @@ router.post("/register",function(req,res)
 			passport.authenticate("local")(req,res,function()
 			{
 				res.redirect("/");
-
 			});
 
 		}
@@ -73,6 +66,7 @@ router.post("/login",passport.authenticate("local",{
 {
 
 });
+
 // logout route
 router.get("/logout",function(req,res)
 {
